@@ -13,6 +13,7 @@ using System.IO;
 using SubSonic;
 using SubSonic.Utilities;
 using SubSonic.CodeGenerator;
+using ComponentFactory.Krypton.Toolkit;
 /*
  * I have taken some code form SubCommander to initialise the connections
  * 
@@ -83,11 +84,11 @@ namespace SonicUI
         string outDIR = string.Empty;
         private void btnPath_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            OpenFileDialog fbd = new OpenFileDialog();
             DialogResult dr = fbd.ShowDialog(this);
             if (dr == DialogResult.OK)
             {
-                cnfPath = fbd.SelectedPath;
+                cnfPath = fbd.FileName;
                 configPath.Text = cnfPath;
             }
         }
@@ -101,40 +102,67 @@ namespace SonicUI
         {
             providername = (SubSonic.DataProviderType)this.providerCombo.SelectedValue;
         }
-
+        WorkItemCollection items = new WorkItemCollection();
+        BindingList<DataProvider> providers = new BindingList<DataProvider>();
         private void btnEnumData_Click(object sender, EventArgs e)
         {
+            PerformConnect();
+        }
+        void PerformConnect()
+        {
             this.UseWaitCursor = true;
+
             SetDescription("Retrieving Database Info");
-            SetProviderManually();
+            if (checkBox1.Checked)
+                SetProvider(configPath.Text);
+            else
+                SetProviderManually();
+            workSource.Clear();
+            if (providers != null)
+                providers.Clear();
+            items.Clear();
+
+            cmbProvider.DisplayMember = "Name";
+            cmbProvider.ValueMember = "Name";
+            cmbProvider.DataSource = providers;
+            Application.DoEvents();
             foreach (DataProvider provider in DataService.Providers)
             {
-                
-                Application.DoEvents();
-                SetDescription("Retrieving Table info");
-                string[] tables = DataService.GetTableNames(provider.Name);
-                for (int i = 0; i < tables.Length; i++)
+                try
                 {
-                    string t = tables[i];
-                    SetDescription(string.Format("Adding Table {0}", t));
-                    WorkItem item = new WorkItem();
-                    item.TableName = t;
-                    item.Type = "Table";
-                    item.Create = true;
-                    workSource.Add(item);
+                    providers.Add(provider);
+                    SetDescription("Retrieving Table info");
+                    string[] tables = DataService.GetTableNames(provider.Name);
+                    for (int i = 0; i < tables.Length; i++)
+                    {
+                        string t = tables[i];
+                        SetDescription(string.Format("Adding Table {0}", t));
+                        WorkItem item = new WorkItem();
+                        item.TableName = t;
+                        item.Type = "Table";
+                        item.Create = true;
+                        workSource.Add(item);
+                        items.Add(item);
+                    }
+
+                    Application.DoEvents();
+                    SetDescription("Retrieving View info");
+                    string[] view = DataService.GetViewNames(provider.Name);
+                    for (int iv = 0; iv < view.Length; iv++)
+                    {
+                        string t = view[iv];
+                        SetDescription(string.Format("Adding View {0}", t));
+                        WorkItem item = new WorkItem();
+                        item.TableName = t;
+                        item.Type = "View";
+                        item.Create = true;
+                        workSource.Add(item);
+                        items.Add(item);
+                    }
                 }
-                Application.DoEvents();
-                SetDescription("Retrieving View info");
-                string[] view = DataService.GetViewNames(provider.Name);
-                for (int iv = 0; iv < view.Length; iv++)
+                catch (Exception ex)
                 {
-                    string t = view[iv];
-                    SetDescription(string.Format("Adding View {0}", t));
-                    WorkItem item = new WorkItem();
-                    item.TableName = t;
-                    item.Type = "View";
-                    item.Create = true;
-                    workSource.Add(item);
+                    MessageBox.Show("Connection failed for {0}", provider.Name);
                 }
             }
             SetDescription("Done");
@@ -143,7 +171,7 @@ namespace SonicUI
         void SetDescription(string desc)
         {
             Application.DoEvents();
-            kryptonHeaderGroup1.ValuesSecondary.Heading = desc;
+            objectGroup.ValuesSecondary.Heading = desc;
         }
         string connectionstring = string.Empty;
         void CheckDB()
@@ -438,7 +466,7 @@ namespace SonicUI
                 catch (ConfigurationErrorsException x)
                 {
                     //let the user know the config was problematic...
-                    //OutputWriteline("Can't set the configuration for the providers. There is an error with your config setup (did you remember to configure SubSonic in your config file?). '{0}'", x.Message);
+                    MessageBox.Show("Can't set the configuration for the providers. There is an error with your config setup (did you remember to configure SubSonic in your config file?). '{0}'", x.Message);
 
                 }
             }
@@ -449,10 +477,15 @@ namespace SonicUI
             }
 
         }
+
         private StringDictionary arguments = new StringDictionary();
         string GetArg(string argSwitch)
         {
             return arguments[argSwitch] ?? string.Empty;
+        }
+        void SetArg(string key,string value)
+        {
+            arguments.Add(key, value);
         }
         private void btnTemplate_Click(object sender, EventArgs e)
         {
@@ -767,6 +800,80 @@ namespace SonicUI
         private void txtOutPath_TextChanged(object sender, EventArgs e)
         {
             outDIR = txtOutPath.Text;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                kryptonGroup1.Enabled = false;
+            }
+            else
+            {
+                kryptonGroup1.Enabled = true;
+            }
+
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSpecHeaderGroup1_Click(object sender, EventArgs e)
+        {
+            if (objectGroup.Collapsed)
+            {
+                objectGroup.HeaderPositionPrimary = VisualOrientation.Right;
+                objectGroup.ButtonSpecs[0].Edge = PaletteRelativeEdgeAlign.Near;
+            }
+            else
+            {
+                objectGroup.HeaderPositionPrimary = VisualOrientation.Top;
+                objectGroup.ButtonSpecs[0].Edge = PaletteRelativeEdgeAlign.Far;
+            }
+        }
+
+        private void buttonSpecHeaderGroup2_Click(object sender, EventArgs e)
+        {
+            if (advGroup.Collapsed)
+            {
+                advGroup.HeaderPositionPrimary = VisualOrientation.Right;
+                advGroup.ButtonSpecs[0].Edge = PaletteRelativeEdgeAlign.Near;
+            }
+            else
+            {
+                advGroup.HeaderPositionPrimary = VisualOrientation.Top;
+                advGroup.ButtonSpecs[0].Edge = PaletteRelativeEdgeAlign.Near;
+            }
+        }
+
+        private void btnAdvPlural_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonButton2_Click(object sender, EventArgs e)
+        {
+            PerformConnect();
+        }
+
+        private void btnAdvPlural_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnAdvPlural.Checked)
+            {
+                SetArg("fixPluralClassNames", "true");
+            }
+            else
+            {
+                SetArg("fixPluralClassNames", "false");
+            }
+        }
+
+        private void kryptonCheckButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            KryptonCheckButton btn = sender as KryptonCheckButton;
+            SetArg(btn.Tag.ToString(), btn.Checked.ToString().ToLower());
         }
     }
 }
