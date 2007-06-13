@@ -193,7 +193,8 @@ namespace SonicUI
         {
             string appconfig = CreateAppConfig(txtNameSpace.Text,providername.ToString(),txtProvName.ToString(),connectionstring);
             GenerateAll();
-            outputText.Text = appconfig;
+            OutputWriteline("#### You can use the following for you app.config ####");
+            OutputWriteline(appconfig);
         }
         void GenerateAll()
         {
@@ -622,7 +623,8 @@ namespace SonicUI
         void OutputWriteline(string message)
         {
             Application.DoEvents();
-            lblInfo.Text = message;
+            outputText.AppendText(message+"\r\n");
+            outputText.ScrollToCaret();
         }
         void GenerateODSControllers()
         {
