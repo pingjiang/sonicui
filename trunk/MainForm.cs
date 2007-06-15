@@ -185,7 +185,7 @@ namespace SonicUI
             if (dr == DialogResult.OK)
             {
                 outDIR = fbd.SelectedPath;
-                txtOutPath.Text = cnfPath;
+                txtOutPath.Text = outDIR;
             }
         }
 
@@ -876,6 +876,28 @@ namespace SonicUI
         {
             KryptonCheckButton btn = sender as KryptonCheckButton;
             SetArg(btn.Tag.ToString(), btn.Checked.ToString().ToLower());
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < workSource.Count; i++)
+            {
+                WorkItem item = workSource[i] as WorkItem;
+                if (!item.Create)
+                    item.Create = true;
+                workGrid.Refresh();
+            }
+        }
+
+        private void selectNoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < workSource.Count; i++)
+            {
+                WorkItem item = workSource[i] as WorkItem;
+                if (item.Create)
+                    item.Create = false;
+                workGrid.Refresh();
+            }
         }
     }
 }
