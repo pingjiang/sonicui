@@ -120,6 +120,7 @@ namespace SonicUI
                     rtprovider = new SubSonic.OracleDataProvider();
                     break;
                 case ProviderTypes.SqlCE:
+                    rtprovider = new SubSonic.SqlCEProvider();
                     break;
                 case ProviderTypes.Enterprise2:
                     rtprovider = new SubSonic.ELib2DataProvider();
@@ -291,7 +292,7 @@ namespace SonicUI
                 OutputWriteline("No server name was passed in - please specify using /s MyServerName");
                 haveError = true;
             }
-            if (db == string.Empty)
+            if (db == string.Empty && activeProvider != ProviderTypes.SqlCE)
             {
                 OutputWriteline("No Database name was passed in - please specify using /s MyServerName");
                 haveError = true;
@@ -302,7 +303,7 @@ namespace SonicUI
             string userID = txtUser.Text;
             string pasword = txtPass.Text;
             string sConn = string.Empty;
-            if (!haveError)
+            if (!haveError && activeProvider != ProviderTypes.SqlCE)
             {
                 sConn = "Server=" + server + ";Database=" + db + ";";
                 if (userID == string.Empty)
@@ -318,6 +319,7 @@ namespace SonicUI
             else
             {
               //ThrowHelp(false);
+                sConn = "Data Source =" + server; 
 
             }
 
