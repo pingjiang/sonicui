@@ -65,6 +65,7 @@ namespace SonicUI
 			{
                 arguments.Add(result[i].Replace(",",string.Empty),string.Empty);
 			}
+            activeProvider = ProviderTypes.SqlServer;
 #if DEBUG
             txtServer.Text = @"10.19.1.199";
             txtBase.Text = "orbitserver_dbo";
@@ -92,15 +93,45 @@ namespace SonicUI
                 configPath.Text = cnfPath;
             }
         }
-        SubSonic.DataProviderType providername = new SubSonic.DataProviderType();
+        ProviderTypes activeProvider = new ProviderTypes();
+        string providername = string.Empty;
         private void MainForm_Load(object sender, EventArgs e)
         {
-            providerCombo.DataSource = Enum.GetValues(typeof(SubSonic.DataProviderType)); 
+            providerCombo.DataSource = Enum.GetValues(typeof(ProviderTypes)); 
         }
 
         private void providerCombo_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            providername = (SubSonic.DataProviderType)this.providerCombo.SelectedValue;
+            activeProvider = (ProviderTypes)providerCombo.SelectedItem;
+            SetArg("provider", activeProvider.ToString());
+        }
+        SubSonic.DataProvider DefaultProvider(ProviderTypes Provider)
+        {
+            SubSonic.DataProvider rtprovider = null;
+            switch (Provider)
+            {
+                case ProviderTypes.SqlServer:
+                    rtprovider = new SubSonic.SqlDataProvider();
+                    break;
+                case ProviderTypes.MySql:
+                    rtprovider = new SubSonic.MySqlDataProvider();
+                    break;
+                case ProviderTypes.Oracle:
+                    rtprovider = new SubSonic.OracleDataProvider();
+                    break;
+                case ProviderTypes.SqlCE:
+                    break;
+                case ProviderTypes.Enterprise2:
+                    rtprovider = new SubSonic.ELib2DataProvider();
+                    break;
+                case ProviderTypes.Enterprise3:
+                    rtprovider = new SubSonic.ELib3DataProvider();
+                    break;
+                default:
+                    rtprovider = new SubSonic.SqlDataProvider();
+                    break;
+            }
+            return rtprovider;
         }
         WorkItemCollection items = new WorkItemCollection();
         BindingList<DataProvider> providers = new BindingList<DataProvider>();
@@ -191,7 +222,7 @@ namespace SonicUI
 
         private void btnGo_Click(object sender, EventArgs e)
         {
-            string appconfig = CreateAppConfig(txtNameSpace.Text,providername.ToString(),txtProvName.ToString(),connectionstring);
+            string appconfig = CreateAppConfig(txtNameSpace.Text,providername.ToString(),txtProvName.Text.ToString(),connectionstring);
             GenerateAll();
             OutputWriteline("#### You can use the following for you app.config ####");
             OutputWriteline(appconfig);
@@ -235,15 +266,15 @@ namespace SonicUI
         <section name=\""SubSonicService\"" type=\""SubSonic.SubSonicSection, SubSonic\"" allowDefinition=\""MachineToApplication\"" restartOnExternalChanges=\""true\""/>
         </configSections>
        <connectionStrings>
-        <add name=\""OrbitRMS.Properties.Settings.Arch\"" connectionString=\""{3}\"" />
+        <add name=\""{2}\"" connectionString=\""{3}\"" />
        </connectionStrings>
        <SubSonicService defaultProvider=\""{2}\"">    
             <providers>
-                <add name=\""{2}\"" type=\""{1}, SubSonic\"" connectionStringName=\""OrbitRMS.Properties.Settings.Server\"" generatedNamespace=\""{0}\""/>
+                <add name=\""{2}\"" type=\""{1}, SubSonic\"" connectionStringName=\""{2}\"" generatedNamespace=\""{0}\""/>
            </providers>
         </SubSonicService>
        </configuration>
-    ",nspace,ssprovider,providername,connstring).Replace("\\",string.Empty);
+    ",nspace,ssprovider,providername,DataService.Provider.DefaultConnectionString).Replace("\\",string.Empty);
             return cnf;
         }
         string GetConnnectionString()
@@ -297,7 +328,7 @@ namespace SonicUI
             //Utility.WriteTrace("Setting config manually - need AT LEAST a /server and /db");
 
             //clear the providers and reset
-            DataService.Provider = new SqlDataProvider();
+            DataService.Provider = DefaultProvider(activeProvider);
             DataService.Providers = new DataProviderCollection();
 
             //instance a section - we'll set this manually for the DataService
@@ -305,7 +336,7 @@ namespace SonicUI
             section.TemplateDirectory = txtTemplatePath.Text;
             CodeService.TemplateDirectory = section.TemplateDirectory;
 
-            string providerName = providername.ToString();
+            string providerName = GetArg(ConfigurationPropertyName.PROVIDER_TO_USE);
             if (string.IsNullOrEmpty(providerName))
             {
                 providerName = "Default";
@@ -486,6 +517,7 @@ namespace SonicUI
         }
         void SetArg(string key,string value)
         {
+            arguments.Remove(key);
             arguments.Add(key, value);
         }
         private void btnTemplate_Click(object sender, EventArgs e)
@@ -611,7 +643,7 @@ namespace SonicUI
                                 string outPath = Path.Combine(outDir, className + fileExt);
                                 //Console.Clear();
                                 OutputWriteline("Generating class for  " + className + " to " + outPath);
-                                Utility.CreateToFile(outPath, usings + code);
+                                //Utility.CreateToFile(outPath, usings + code);
                             }
                         }
                     }
@@ -688,7 +720,7 @@ namespace SonicUI
                             {
                                 string outPath = Path.Combine(outDir, className + "Controller" + fileExt);
                                 OutputWriteline("Generating ODS Controller for  " + className + " to " + outPath);
-                                Utility.CreateToFile(outPath, usings + code);
+                                SubSonic.Sugar.Files.CreateToFile(outPath, usings + code);
                             }
 
                         }
@@ -729,7 +761,7 @@ namespace SonicUI
                     string outPath = Path.Combine(outDir, className + fileExt);
                     OutputWriteline("Generating ReadOnly class for  " + className + " to " + outPath);
 
-                    Utility.CreateToFile(outPath, code);
+                    SubSonic.Sugar.Files.CreateToFile(outPath, code);
                 }
             }
 
@@ -764,7 +796,7 @@ namespace SonicUI
                 string outPath = Path.Combine(outDir, "StoredProcedures" + fileExt);
                 OutputWriteline("Generating SPs to " + outPath);
 
-                Utility.CreateToFile(outPath, code);
+                SubSonic.Sugar.Files.CreateToFile(outPath, code);
             }
 
             OutputWriteline("Finished");
@@ -794,7 +826,7 @@ namespace SonicUI
             string outPath = Path.Combine(outDir, "AllStructs" + fileExt);
             OutputWriteline("Generating Structs to " + outPath);
 
-            Utility.CreateToFile(outPath, code);
+            SubSonic.Sugar.Files.CreateToFile(outPath, code);
 
             OutputWriteline("Finished");
         }
@@ -899,5 +931,14 @@ namespace SonicUI
                 workGrid.Refresh();
             }
         }
+    }
+    public enum ProviderTypes
+    {
+        SqlServer,
+        MySql,
+        Oracle,
+        SqlCE,
+        Enterprise2,
+        Enterprise3
     }
 }
