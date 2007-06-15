@@ -66,10 +66,10 @@ namespace SonicUI
                 arguments.Add(result[i].Replace(",",string.Empty),string.Empty);
 			}
 #if DEBUG
-            txtServer.Text = @"YAVIN\SQLEXPRESS";
-            txtBase.Text = "orbitserver";
-            txtPass.Text = "arch22";
-            txtUser.Text = "sa";
+            txtServer.Text = @"10.19.1.199";
+            txtBase.Text = "orbitserver_dbo";
+            txtPass.Text = "orbit";
+            txtUser.Text = "root";
             txtNameSpace.Text = "SonicUI.Dal";
             
             if (!Directory.Exists(Application.StartupPath + @"\DAL"))
@@ -136,7 +136,7 @@ namespace SonicUI
                     for (int i = 0; i < tables.Length; i++)
                     {
                         string t = tables[i];
-                        SetDescription(string.Format("Adding Table {0}", t));
+                       // SetDescription(string.Format("Adding Table {0}", t));
                         WorkItem item = new WorkItem();
                         item.TableName = t;
                         item.Type = "Table";
@@ -151,7 +151,7 @@ namespace SonicUI
                     for (int iv = 0; iv < view.Length; iv++)
                     {
                         string t = view[iv];
-                        SetDescription(string.Format("Adding View {0}", t));
+                        //SetDescription(string.Format("Adding View {0}", t));
                         WorkItem item = new WorkItem();
                         item.TableName = t;
                         item.Type = "View";
@@ -312,7 +312,7 @@ namespace SonicUI
             }
             section.DefaultProvider = providerName;
 
-            section.DefaultProvider = "Default";
+            //section.DefaultProvider = "Default";
 
             CodeService.TemplateDirectory = section.TemplateDirectory;
 

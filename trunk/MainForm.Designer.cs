@@ -34,6 +34,9 @@ namespace SonicUI
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.objectGroup = new ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup();
             this.buttonSpecHeaderGroup1 = new ComponentFactory.Krypton.Toolkit.ButtonSpecHeaderGroup();
+            this.gridMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectNoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.cmbProvider = new System.Windows.Forms.ComboBox();
             this.outputText = new System.Windows.Forms.RichTextBox();
@@ -78,9 +81,6 @@ namespace SonicUI
             this.btnAdvSP = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.btnAdvPlural = new ComponentFactory.Krypton.Toolkit.KryptonCheckButton();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.gridMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectNoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workGrid = new SonicUI.Controls.KryptonGrid();
             this.tableNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +90,7 @@ namespace SonicUI
             ((System.ComponentModel.ISupportInitialize)(this.objectGroup.Panel)).BeginInit();
             this.objectGroup.Panel.SuspendLayout();
             this.objectGroup.SuspendLayout();
+            this.gridMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
             this.kryptonPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblInfo)).BeginInit();
@@ -131,7 +132,6 @@ namespace SonicUI
             ((System.ComponentModel.ISupportInitialize)(this.btnAdvPlural)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
-            this.gridMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workSource)).BeginInit();
             this.SuspendLayout();
@@ -141,7 +141,7 @@ namespace SonicUI
             this.objectGroup.AutoSize = true;
             this.objectGroup.ButtonSpecs.AddRange(new ComponentFactory.Krypton.Toolkit.ButtonSpecHeaderGroup[] {
             this.buttonSpecHeaderGroup1});
-            this.objectGroup.DirtyPaletteCounter = 59;
+            this.objectGroup.DirtyPaletteCounter = 62;
             this.objectGroup.Dock = System.Windows.Forms.DockStyle.Left;
             this.objectGroup.Location = new System.Drawing.Point(0, 150);
             this.objectGroup.Name = "objectGroup";
@@ -160,7 +160,7 @@ namespace SonicUI
             this.objectGroup.ValuesPrimary.Heading = "Data Objects";
             this.objectGroup.ValuesPrimary.Image = global::SonicUI.Properties.Resources.db_status;
             this.objectGroup.ValuesSecondary.Description = "";
-            this.objectGroup.ValuesSecondary.Heading = "Description";
+            this.objectGroup.ValuesSecondary.Heading = "Select Objects to Generate";
             this.objectGroup.ValuesSecondary.Image = null;
             // 
             // buttonSpecHeaderGroup1
@@ -171,6 +171,29 @@ namespace SonicUI
             this.buttonSpecHeaderGroup1.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.ArrowLeft;
             this.buttonSpecHeaderGroup1.UniqueName = "4BE6B26D7F0842614BE6B26D7F084261";
             this.buttonSpecHeaderGroup1.Click += new System.EventHandler(this.buttonSpecHeaderGroup1_Click);
+            // 
+            // gridMenu
+            // 
+            this.gridMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.gridMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllToolStripMenuItem,
+            this.selectNoneToolStripMenuItem});
+            this.gridMenu.Name = "gridMenu";
+            this.gridMenu.Size = new System.Drawing.Size(138, 48);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // selectNoneToolStripMenuItem
+            // 
+            this.selectNoneToolStripMenuItem.Name = "selectNoneToolStripMenuItem";
+            this.selectNoneToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.selectNoneToolStripMenuItem.Text = "Select None";
+            this.selectNoneToolStripMenuItem.Click += new System.EventHandler(this.selectNoneToolStripMenuItem_Click);
             // 
             // kryptonPanel2
             // 
@@ -204,7 +227,7 @@ namespace SonicUI
             // 
             // lblInfo
             // 
-            this.lblInfo.DirtyPaletteCounter = 48;
+            this.lblInfo.DirtyPaletteCounter = 51;
             this.lblInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblInfo.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalPanel;
             this.lblInfo.Location = new System.Drawing.Point(5, 379);
@@ -228,7 +251,7 @@ namespace SonicUI
             // 
             // kryptonHeaderGroup3
             // 
-            this.kryptonHeaderGroup3.DirtyPaletteCounter = 57;
+            this.kryptonHeaderGroup3.DirtyPaletteCounter = 60;
             this.kryptonHeaderGroup3.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonHeaderGroup3.Location = new System.Drawing.Point(5, 0);
             this.kryptonHeaderGroup3.Name = "kryptonHeaderGroup3";
@@ -258,7 +281,7 @@ namespace SonicUI
             // 
             // btnTemplate
             // 
-            this.btnTemplate.DirtyPaletteCounter = 60;
+            this.btnTemplate.DirtyPaletteCounter = 63;
             this.btnTemplate.Location = new System.Drawing.Point(308, 78);
             this.btnTemplate.Name = "btnTemplate";
             this.btnTemplate.Size = new System.Drawing.Size(22, 25);
@@ -281,7 +304,7 @@ namespace SonicUI
             // 
             // kryptonLabel9
             // 
-            this.kryptonLabel9.DirtyPaletteCounter = 63;
+            this.kryptonLabel9.DirtyPaletteCounter = 66;
             this.kryptonLabel9.Location = new System.Drawing.Point(3, 81);
             this.kryptonLabel9.Name = "kryptonLabel9";
             this.kryptonLabel9.Size = new System.Drawing.Size(89, 20);
@@ -300,7 +323,7 @@ namespace SonicUI
             // 
             // kryptonLabel8
             // 
-            this.kryptonLabel8.DirtyPaletteCounter = 62;
+            this.kryptonLabel8.DirtyPaletteCounter = 65;
             this.kryptonLabel8.Location = new System.Drawing.Point(3, 55);
             this.kryptonLabel8.Name = "kryptonLabel8";
             this.kryptonLabel8.Size = new System.Drawing.Size(92, 20);
@@ -319,7 +342,7 @@ namespace SonicUI
             // 
             // kryptonLabel7
             // 
-            this.kryptonLabel7.DirtyPaletteCounter = 61;
+            this.kryptonLabel7.DirtyPaletteCounter = 64;
             this.kryptonLabel7.Location = new System.Drawing.Point(3, 29);
             this.kryptonLabel7.Name = "kryptonLabel7";
             this.kryptonLabel7.Size = new System.Drawing.Size(74, 20);
@@ -331,7 +354,7 @@ namespace SonicUI
             // 
             // kryptonButton1
             // 
-            this.kryptonButton1.DirtyPaletteCounter = 59;
+            this.kryptonButton1.DirtyPaletteCounter = 62;
             this.kryptonButton1.Location = new System.Drawing.Point(396, 3);
             this.kryptonButton1.Name = "kryptonButton1";
             this.kryptonButton1.Size = new System.Drawing.Size(22, 25);
@@ -355,7 +378,7 @@ namespace SonicUI
             // 
             // kryptonLabel6
             // 
-            this.kryptonLabel6.DirtyPaletteCounter = 60;
+            this.kryptonLabel6.DirtyPaletteCounter = 63;
             this.kryptonLabel6.Location = new System.Drawing.Point(3, 3);
             this.kryptonLabel6.Name = "kryptonLabel6";
             this.kryptonLabel6.Size = new System.Drawing.Size(49, 20);
@@ -367,7 +390,7 @@ namespace SonicUI
             // 
             // btnGo
             // 
-            this.btnGo.DirtyPaletteCounter = 58;
+            this.btnGo.DirtyPaletteCounter = 61;
             this.btnGo.Location = new System.Drawing.Point(352, 63);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(66, 40);
@@ -393,7 +416,7 @@ namespace SonicUI
             // 
             // kryptonHeaderGroup2
             // 
-            this.kryptonHeaderGroup2.DirtyPaletteCounter = 58;
+            this.kryptonHeaderGroup2.DirtyPaletteCounter = 61;
             this.kryptonHeaderGroup2.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonHeaderGroup2.HeaderVisibleSecondary = false;
             this.kryptonHeaderGroup2.Location = new System.Drawing.Point(0, 0);
@@ -419,7 +442,7 @@ namespace SonicUI
             // 
             // btnRefresh
             // 
-            this.btnRefresh.DirtyPaletteCounter = 59;
+            this.btnRefresh.DirtyPaletteCounter = 62;
             this.btnRefresh.Location = new System.Drawing.Point(689, 62);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(90, 42);
@@ -435,7 +458,7 @@ namespace SonicUI
             // 
             // kryptonGroup1
             // 
-            this.kryptonGroup1.DirtyPaletteCounter = 57;
+            this.kryptonGroup1.DirtyPaletteCounter = 60;
             this.kryptonGroup1.Location = new System.Drawing.Point(16, 36);
             this.kryptonGroup1.Name = "kryptonGroup1";
             // 
@@ -463,7 +486,7 @@ namespace SonicUI
             // 
             // kryptonLabel4
             // 
-            this.kryptonLabel4.DirtyPaletteCounter = 59;
+            this.kryptonLabel4.DirtyPaletteCounter = 62;
             this.kryptonLabel4.Location = new System.Drawing.Point(456, 33);
             this.kryptonLabel4.Name = "kryptonLabel4";
             this.kryptonLabel4.Size = new System.Drawing.Size(62, 20);
@@ -482,7 +505,7 @@ namespace SonicUI
             // 
             // kryptonLabel5
             // 
-            this.kryptonLabel5.DirtyPaletteCounter = 58;
+            this.kryptonLabel5.DirtyPaletteCounter = 61;
             this.kryptonLabel5.Location = new System.Drawing.Point(226, 33);
             this.kryptonLabel5.Name = "kryptonLabel5";
             this.kryptonLabel5.Size = new System.Drawing.Size(35, 20);
@@ -501,7 +524,7 @@ namespace SonicUI
             // 
             // kryptonLabel3
             // 
-            this.kryptonLabel3.DirtyPaletteCounter = 58;
+            this.kryptonLabel3.DirtyPaletteCounter = 61;
             this.kryptonLabel3.Location = new System.Drawing.Point(456, 4);
             this.kryptonLabel3.Name = "kryptonLabel3";
             this.kryptonLabel3.Size = new System.Drawing.Size(61, 20);
@@ -529,7 +552,7 @@ namespace SonicUI
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.DirtyPaletteCounter = 57;
+            this.kryptonLabel2.DirtyPaletteCounter = 60;
             this.kryptonLabel2.Location = new System.Drawing.Point(226, 4);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(45, 20);
@@ -541,7 +564,7 @@ namespace SonicUI
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.DirtyPaletteCounter = 57;
+            this.kryptonLabel1.DirtyPaletteCounter = 60;
             this.kryptonLabel1.Location = new System.Drawing.Point(13, 3);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(56, 20);
@@ -553,7 +576,7 @@ namespace SonicUI
             // 
             // btnPath
             // 
-            this.btnPath.DirtyPaletteCounter = 58;
+            this.btnPath.DirtyPaletteCounter = 61;
             this.btnPath.Location = new System.Drawing.Point(653, 3);
             this.btnPath.Name = "btnPath";
             this.btnPath.Size = new System.Drawing.Size(22, 25);
@@ -570,7 +593,7 @@ namespace SonicUI
             // configPath
             // 
             this.configPath.AutoSize = false;
-            this.configPath.DirtyPaletteCounter = 58;
+            this.configPath.DirtyPaletteCounter = 61;
             this.configPath.Location = new System.Drawing.Point(118, 5);
             this.configPath.Name = "configPath";
             this.configPath.Size = new System.Drawing.Size(529, 25);
@@ -594,7 +617,7 @@ namespace SonicUI
             // 
             // btnEnumData
             // 
-            this.btnEnumData.DirtyPaletteCounter = 58;
+            this.btnEnumData.DirtyPaletteCounter = 61;
             this.btnEnumData.Location = new System.Drawing.Point(689, 3);
             this.btnEnumData.Name = "btnEnumData";
             this.btnEnumData.Size = new System.Drawing.Size(90, 42);
@@ -622,7 +645,7 @@ namespace SonicUI
             this.advGroup.AutoSize = true;
             this.advGroup.ButtonSpecs.AddRange(new ComponentFactory.Krypton.Toolkit.ButtonSpecHeaderGroup[] {
             this.buttonSpecHeaderGroup2});
-            this.advGroup.DirtyPaletteCounter = 38;
+            this.advGroup.DirtyPaletteCounter = 40;
             this.advGroup.Dock = System.Windows.Forms.DockStyle.Right;
             this.advGroup.Location = new System.Drawing.Point(652, 150);
             this.advGroup.Name = "advGroup";
@@ -641,7 +664,7 @@ namespace SonicUI
             this.advGroup.ValuesPrimary.Heading = "Adv Options";
             this.advGroup.ValuesPrimary.Image = ((System.Drawing.Image)(resources.GetObject("advGroup.ValuesPrimary.Image")));
             this.advGroup.ValuesSecondary.Description = "";
-            this.advGroup.ValuesSecondary.Heading = "Description";
+            this.advGroup.ValuesSecondary.Heading = "Set Advanced options";
             this.advGroup.ValuesSecondary.Image = null;
             // 
             // buttonSpecHeaderGroup2
@@ -656,7 +679,7 @@ namespace SonicUI
             // 
             // btnAdvLazy
             // 
-            this.btnAdvLazy.DirtyPaletteCounter = 4;
+            this.btnAdvLazy.DirtyPaletteCounter = 6;
             this.btnAdvLazy.Location = new System.Drawing.Point(16, 103);
             this.btnAdvLazy.Name = "btnAdvLazy";
             this.btnAdvLazy.Size = new System.Drawing.Size(177, 25);
@@ -670,7 +693,7 @@ namespace SonicUI
             // 
             // btnAdvUnder
             // 
-            this.btnAdvUnder.DirtyPaletteCounter = 5;
+            this.btnAdvUnder.DirtyPaletteCounter = 7;
             this.btnAdvUnder.Location = new System.Drawing.Point(16, 72);
             this.btnAdvUnder.Name = "btnAdvUnder";
             this.btnAdvUnder.Size = new System.Drawing.Size(177, 25);
@@ -684,7 +707,7 @@ namespace SonicUI
             // 
             // btnAdvSP
             // 
-            this.btnAdvSP.DirtyPaletteCounter = 4;
+            this.btnAdvSP.DirtyPaletteCounter = 6;
             this.btnAdvSP.Location = new System.Drawing.Point(16, 41);
             this.btnAdvSP.Name = "btnAdvSP";
             this.btnAdvSP.Size = new System.Drawing.Size(177, 25);
@@ -698,7 +721,7 @@ namespace SonicUI
             // 
             // btnAdvPlural
             // 
-            this.btnAdvPlural.DirtyPaletteCounter = 33;
+            this.btnAdvPlural.DirtyPaletteCounter = 35;
             this.btnAdvPlural.Location = new System.Drawing.Point(16, 10);
             this.btnAdvPlural.Name = "btnAdvPlural";
             this.btnAdvPlural.Size = new System.Drawing.Size(177, 25);
@@ -722,29 +745,6 @@ namespace SonicUI
             this.kryptonPanel1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 5);
             this.kryptonPanel1.Size = new System.Drawing.Size(432, 414);
             this.kryptonPanel1.TabIndex = 0;
-            // 
-            // gridMenu
-            // 
-            this.gridMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.gridMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectAllToolStripMenuItem,
-            this.selectNoneToolStripMenuItem});
-            this.gridMenu.Name = "gridMenu";
-            this.gridMenu.Size = new System.Drawing.Size(138, 48);
-            // 
-            // selectAllToolStripMenuItem
-            // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.selectAllToolStripMenuItem.Text = "Select All";
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
-            // 
-            // selectNoneToolStripMenuItem
-            // 
-            this.selectNoneToolStripMenuItem.Name = "selectNoneToolStripMenuItem";
-            this.selectNoneToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.selectNoneToolStripMenuItem.Text = "Select None";
-            this.selectNoneToolStripMenuItem.Click += new System.EventHandler(this.selectNoneToolStripMenuItem_Click);
             // 
             // workGrid
             // 
@@ -834,6 +834,7 @@ namespace SonicUI
             this.objectGroup.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.objectGroup)).EndInit();
             this.objectGroup.ResumeLayout(false);
+            this.gridMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
             this.kryptonPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lblInfo)).EndInit();
@@ -879,7 +880,6 @@ namespace SonicUI
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
-            this.gridMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.workGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.workSource)).EndInit();
             this.ResumeLayout(false);
