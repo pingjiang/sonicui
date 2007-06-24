@@ -66,6 +66,7 @@ namespace SonicUI
                 arguments.Add(result[i].Replace(",",string.Empty),string.Empty);
 			}
             activeProvider = ProviderTypes.SqlServer;
+            SetArg("regexDictionaryReplace",@"\(,_;\),_");
 #if DEBUG
             txtServer.Text = @"10.19.1.199";
             txtBase.Text = "orbitserver_dbo";
@@ -192,7 +193,7 @@ namespace SonicUI
                         items.Add(item);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("Connection failed for {0}", provider.Name);
                 }
@@ -484,7 +485,7 @@ namespace SonicUI
                             {
                                 DataService.Provider = DataService.Providers[providerName];
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
                                // OutputWriteline("ERROR: There is no provider with the name '{0}'. Exception: {1}", providerName, e);
 
@@ -578,14 +579,14 @@ namespace SonicUI
 
             string fileExt = FileExtension.DOT_CS;
             string lang = GetArg("lang");
-            LanguageType langType = LanguageType.CSharp;
+            ICodeLanguage language = new CSharpCodeLanguage();
 
             if (FileExtension.IsVB(lang))
             {
-                langType = LanguageType.VB;
+                language = new VBCodeLanguage();
                 fileExt = FileExtension.DOT_VB;
             }
-            string usings = ParseUtility.GetUsings(langType);
+            string usings = ParseUtility.GetUsings(language);
 
             if (DataService.Providers.Count == 0)
             {
@@ -638,7 +639,7 @@ namespace SonicUI
                         if (item.Create)
                         {
                             string className = DataService.GetSchema(item.TableName, provider.Name, TableType.Table).ClassName;
-                            string code = CodeService.RunClass(item.TableName, provider.Name, langType);
+                            string code = CodeService.RunClass(item.TableName, provider.Name, language);
 
                             if (!String.IsNullOrEmpty(code))
                             {
@@ -646,6 +647,7 @@ namespace SonicUI
                                 //Console.Clear();
                                 OutputWriteline("Generating class for  " + className + " to " + outPath);
                                 //Utility.CreateToFile(outPath, usings + code);
+                                SubSonic.Sugar.Files.CreateToFile(outPath, usings + code);
                             }
                         }
                     }
@@ -668,14 +670,14 @@ namespace SonicUI
 
             string fileExt = FileExtension.DOT_CS;
             string lang = GetArg("lang");
-            LanguageType langType = LanguageType.CSharp;
+            ICodeLanguage language = new CSharpCodeLanguage();
 
             if (FileExtension.IsVB(lang))
             {
-                langType = LanguageType.VB;
+                language = new VBCodeLanguage();
                 fileExt = FileExtension.DOT_VB;
             }
-            string usings = ParseUtility.GetUsings(langType);
+            string usings = ParseUtility.GetUsings(language);
 
             if (DataService.Providers.Count == 0)
             {
@@ -716,7 +718,7 @@ namespace SonicUI
                         if (item.Create)
                         {
                             string className = DataService.GetSchema(item.TableName, provider.Name, TableType.Table).ClassName;
-                            string code = CodeService.RunODS(item.TableName, provider.Name, langType);
+                            string code = CodeService.RunODS(item.TableName, provider.Name, language);
 
                             if (!String.IsNullOrEmpty(code))
                             {
@@ -739,13 +741,13 @@ namespace SonicUI
 
             string lang = GetArg("lang");
             string fileExt = FileExtension.DOT_CS;
-            LanguageType langType = LanguageType.CSharp;
+            ICodeLanguage language = new CSharpCodeLanguage();
 
             if (FileExtension.IsVB(lang)) {
-                langType = LanguageType.VB;
+                language = new VBCodeLanguage();
                 fileExt = FileExtension.DOT_VB;
             }
-            string usings = ParseUtility.GetUsings(langType);
+            string usings = ParseUtility.GetUsings(language);
 
             //loop the providers, and if there's more than one, output to their own folder
             //for tidiness
@@ -759,7 +761,7 @@ namespace SonicUI
                 {
 
                     string className = DataService.GetSchema(tbl, provider.Name, TableType.View).ClassName;
-                    string code = usings + CodeService.RunReadOnly(tbl, provider.Name, langType);
+                    string code = usings + CodeService.RunReadOnly(tbl, provider.Name, language);
                     string outPath = Path.Combine(outDir, className + fileExt);
                     OutputWriteline("Generating ReadOnly class for  " + className + " to " + outPath);
 
@@ -777,21 +779,21 @@ namespace SonicUI
 
             string lang = GetArg("lang");
             string fileExt = FileExtension.DOT_CS;
-            LanguageType langType = LanguageType.CSharp;
+            ICodeLanguage language = new CSharpCodeLanguage();
 
             if (FileExtension.IsVB(lang))
             {
-                langType = LanguageType.VB;
+                language = new VBCodeLanguage();
                 fileExt = FileExtension.DOT_VB;
             }
-            string usings = ParseUtility.GetUsings(langType);
+            string usings = ParseUtility.GetUsings(language);
 
             //loop the providers, and if there's more than one, output to their own folder
             //for tidiness
             foreach (DataProvider provider in DataService.Providers)
             {
 
-                string code = usings + CodeService.RunSPs(provider.Name, langType);
+                string code = usings + CodeService.RunSPs(provider.Name, language);
                 string outDir = GetOutSubDir(provider);
                 if(outDir == string.Empty)
                     outDir = Directory.GetCurrentDirectory();
@@ -809,18 +811,18 @@ namespace SonicUI
 
             string lang = GetArg("lang");
             string fileExt = FileExtension.DOT_CS;
-            LanguageType langType = LanguageType.CSharp;
+            ICodeLanguage language = new CSharpCodeLanguage();
             
 
             if (FileExtension.IsVB(lang))
             {
-                langType = LanguageType.VB;
+                language = new VBCodeLanguage();
                 fileExt = FileExtension.DOT_VB;
             }
-            string usings = ParseUtility.GetUsings(langType);
+            string usings = ParseUtility.GetUsings(language);
 
 
-            string code = usings + CodeService.RunStructs(langType);
+            string code = usings + CodeService.RunStructs(language);
 
             string outDir = GetOutputDirectory();
             if (outDir == string.Empty)
@@ -932,6 +934,14 @@ namespace SonicUI
                     item.Create = false;
                 workGrid.Refresh();
             }
+        }
+
+        private void kryptonButton2_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            DialogResult dr = ofd.ShowDialog(this);
+            if (dr == DialogResult.OK)
+                txtServer.Text = ofd.FileName;
         }
     }
     public enum ProviderTypes

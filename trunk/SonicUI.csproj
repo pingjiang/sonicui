@@ -107,7 +107,7 @@
     <Content Include="soniclogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SVNSources\SubSonic\trunk\SubSonic\SubSonic.csproj">
+    <ProjectReference Include="..\SubSonic\SubSonic.csproj">
       <Project>{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}</Project>
       <Name>SubSonic</Name>
     </ProjectReference>

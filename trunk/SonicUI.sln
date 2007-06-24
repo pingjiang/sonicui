@@ -7,17 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicUI", "SonicUI.csproj",
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubSonic", "..\..\SVNSources\SubSonic\trunk\SubSonic\SubSonic.csproj", "{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubSonic", "..\SubSonic\SubSonic.csproj", "{EE4A10E7-92C3-4EAC-B6DF-5DA1C26F4D1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubCommander", "..\..\SVNSources\SubSonic\trunk\SubCommander\SubCommander.csproj", "{39AED956-4929-4A20-9641-6612B9998B31}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubCommander", "..\SubCommander\SubCommander.csproj", "{39AED956-4929-4A20-9641-6612B9998B31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubSync", "..\SubSync\SubSync.csproj", "{6146CF74-0FDA-42ED-8F99-DFC2C852D303}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +31,10 @@ Global
 		{39AED956-4929-4A20-9641-6612B9998B31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AED956-4929-4A20-9641-6612B9998B31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39AED956-4929-4A20-9641-6612B9998B31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6146CF74-0FDA-42ED-8F99-DFC2C852D303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6146CF74-0FDA-42ED-8F99-DFC2C852D303}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6146CF74-0FDA-42ED-8F99-DFC2C852D303}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6146CF74-0FDA-42ED-8F99-DFC2C852D303}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
