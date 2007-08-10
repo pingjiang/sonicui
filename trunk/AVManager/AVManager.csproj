@@ -1,0 +1,295 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1089350E-A8B7-4E7F-B5CD-81B18C08BB8A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AVManager</RootNamespace>
+    <AssemblyName>AVManager</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.5.5.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e" />
+    <Reference Include="SubSonic, Version=2.0.3.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\SubSonic.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\OptionsForm.designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OptionsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OptionsPanel.designer.cs">
+      <DependentUpon>OptionsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OptionsPanelList.cs" />
+    <Compile Include="DAL\Controllers\AddressController.cs" />
+    <Compile Include="DAL\Controllers\AddressTypeController.cs" />
+    <Compile Include="DAL\Controllers\AWBuildVersionController.cs" />
+    <Compile Include="DAL\Controllers\BillOfMaterialController.cs" />
+    <Compile Include="DAL\Controllers\ContactController.cs" />
+    <Compile Include="DAL\Controllers\ContactCreditCardController.cs" />
+    <Compile Include="DAL\Controllers\ContactTypeController.cs" />
+    <Compile Include="DAL\Controllers\CountryRegionController.cs" />
+    <Compile Include="DAL\Controllers\CountryRegionCurrencyController.cs" />
+    <Compile Include="DAL\Controllers\CreditCardController.cs" />
+    <Compile Include="DAL\Controllers\CultureController.cs" />
+    <Compile Include="DAL\Controllers\CurrencyController.cs" />
+    <Compile Include="DAL\Controllers\CurrencyRateController.cs" />
+    <Compile Include="DAL\Controllers\CustomerAddressController.cs" />
+    <Compile Include="DAL\Controllers\CustomerController.cs" />
+    <Compile Include="DAL\Controllers\DatabaseLogController.cs" />
+    <Compile Include="DAL\Controllers\DepartmentController.cs" />
+    <Compile Include="DAL\Controllers\DocumentController.cs" />
+    <Compile Include="DAL\Controllers\EmployeeAddressController.cs" />
+    <Compile Include="DAL\Controllers\EmployeeController.cs" />
+    <Compile Include="DAL\Controllers\EmployeeDepartmentHistoryController.cs" />
+    <Compile Include="DAL\Controllers\EmployeePayHistoryController.cs" />
+    <Compile Include="DAL\Controllers\ErrorLogController.cs" />
+    <Compile Include="DAL\Controllers\IllustrationController.cs" />
+    <Compile Include="DAL\Controllers\IndividualController.cs" />
+    <Compile Include="DAL\Controllers\JobCandidateController.cs" />
+    <Compile Include="DAL\Controllers\LocationController.cs" />
+    <Compile Include="DAL\Controllers\ProductCategoryController.cs" />
+    <Compile Include="DAL\Controllers\ProductController.cs" />
+    <Compile Include="DAL\Controllers\ProductCostHistoryController.cs" />
+    <Compile Include="DAL\Controllers\ProductDescriptionController.cs" />
+    <Compile Include="DAL\Controllers\ProductDocumentController.cs" />
+    <Compile Include="DAL\Controllers\ProductInventoryController.cs" />
+    <Compile Include="DAL\Controllers\ProductListPriceHistoryController.cs" />
+    <Compile Include="DAL\Controllers\ProductModelController.cs" />
+    <Compile Include="DAL\Controllers\ProductModelIllustrationController.cs" />
+    <Compile Include="DAL\Controllers\ProductModelProductDescriptionCultureController.cs" />
+    <Compile Include="DAL\Controllers\ProductPhotoController.cs" />
+    <Compile Include="DAL\Controllers\ProductProductPhotoController.cs" />
+    <Compile Include="DAL\Controllers\ProductReviewController.cs" />
+    <Compile Include="DAL\Controllers\ProductSubcategoryController.cs" />
+    <Compile Include="DAL\Controllers\ProductVendorController.cs" />
+    <Compile Include="DAL\Controllers\PurchaseOrderDetailController.cs" />
+    <Compile Include="DAL\Controllers\PurchaseOrderHeaderController.cs" />
+    <Compile Include="DAL\Controllers\SalesOrderDetailController.cs" />
+    <Compile Include="DAL\Controllers\SalesOrderHeaderController.cs" />
+    <Compile Include="DAL\Controllers\SalesOrderHeaderSalesReasonController.cs" />
+    <Compile Include="DAL\Controllers\SalesPersonController.cs" />
+    <Compile Include="DAL\Controllers\SalesPersonQuotaHistoryController.cs" />
+    <Compile Include="DAL\Controllers\SalesReasonController.cs" />
+    <Compile Include="DAL\Controllers\SalesTaxRateController.cs" />
+    <Compile Include="DAL\Controllers\SalesTerritoryController.cs" />
+    <Compile Include="DAL\Controllers\SalesTerritoryHistoryController.cs" />
+    <Compile Include="DAL\Controllers\ScrapReasonController.cs" />
+    <Compile Include="DAL\Controllers\ShiftController.cs" />
+    <Compile Include="DAL\Controllers\ShipMethodController.cs" />
+    <Compile Include="DAL\Controllers\ShoppingCartItemController.cs" />
+    <Compile Include="DAL\Controllers\SpecialOfferController.cs" />
+    <Compile Include="DAL\Controllers\SpecialOfferProductController.cs" />
+    <Compile Include="DAL\Controllers\StateProvinceController.cs" />
+    <Compile Include="DAL\Controllers\StoreContactController.cs" />
+    <Compile Include="DAL\Controllers\StoreController.cs" />
+    <Compile Include="DAL\Controllers\StoredProcedures.cs" />
+    <Compile Include="DAL\Controllers\TransactionHistoryArchiveController.cs" />
+    <Compile Include="DAL\Controllers\TransactionHistoryController.cs" />
+    <Compile Include="DAL\Controllers\UnitMeasureController.cs" />
+    <Compile Include="DAL\Controllers\VendorAddressController.cs" />
+    <Compile Include="DAL\Controllers\VendorContactController.cs" />
+    <Compile Include="DAL\Controllers\VendorController.cs" />
+    <Compile Include="DAL\Controllers\WorkOrderController.cs" />
+    <Compile Include="DAL\Controllers\WorkOrderRoutingController.cs" />
+    <Compile Include="DAL\Models\Address.cs" />
+    <Compile Include="DAL\Models\AddressType.cs" />
+    <Compile Include="DAL\Models\AWBuildVersion.cs" />
+    <Compile Include="DAL\Models\BillOfMaterial.cs" />
+    <Compile Include="DAL\Models\Contact.cs" />
+    <Compile Include="DAL\Models\ContactCreditCard.cs" />
+    <Compile Include="DAL\Models\ContactType.cs" />
+    <Compile Include="DAL\Models\CountryRegion.cs" />
+    <Compile Include="DAL\Models\CountryRegionCurrency.cs" />
+    <Compile Include="DAL\Models\CreditCard.cs" />
+    <Compile Include="DAL\Models\Culture.cs" />
+    <Compile Include="DAL\Models\Currency.cs" />
+    <Compile Include="DAL\Models\CurrencyRate.cs" />
+    <Compile Include="DAL\Models\Customer.cs" />
+    <Compile Include="DAL\Models\CustomerAddress.cs" />
+    <Compile Include="DAL\Models\DatabaseLog.cs" />
+    <Compile Include="DAL\Models\Department.cs" />
+    <Compile Include="DAL\Models\Document.cs" />
+    <Compile Include="DAL\Models\Employee.cs" />
+    <Compile Include="DAL\Models\EmployeeAddress.cs" />
+    <Compile Include="DAL\Models\EmployeeDepartmentHistory.cs" />
+    <Compile Include="DAL\Models\EmployeePayHistory.cs" />
+    <Compile Include="DAL\Models\ErrorLog.cs" />
+    <Compile Include="DAL\Models\Illustration.cs" />
+    <Compile Include="DAL\Models\Individual.cs" />
+    <Compile Include="DAL\Models\JobCandidate.cs" />
+    <Compile Include="DAL\Models\Location.cs" />
+    <Compile Include="DAL\Models\Product.cs" />
+    <Compile Include="DAL\Models\ProductCategory.cs" />
+    <Compile Include="DAL\Models\ProductCostHistory.cs" />
+    <Compile Include="DAL\Models\ProductDescription.cs" />
+    <Compile Include="DAL\Models\ProductDocument.cs" />
+    <Compile Include="DAL\Models\ProductInventory.cs" />
+    <Compile Include="DAL\Models\ProductListPriceHistory.cs" />
+    <Compile Include="DAL\Models\ProductModel.cs" />
+    <Compile Include="DAL\Models\ProductModelIllustration.cs" />
+    <Compile Include="DAL\Models\ProductModelProductDescriptionCulture.cs" />
+    <Compile Include="DAL\Models\ProductPhoto.cs" />
+    <Compile Include="DAL\Models\ProductProductPhoto.cs" />
+    <Compile Include="DAL\Models\ProductReview.cs" />
+    <Compile Include="DAL\Models\ProductSubcategory.cs" />
+    <Compile Include="DAL\Models\ProductVendor.cs" />
+    <Compile Include="DAL\Models\PurchaseOrderDetail.cs" />
+    <Compile Include="DAL\Models\PurchaseOrderHeader.cs" />
+    <Compile Include="DAL\Models\SalesOrderDetail.cs" />
+    <Compile Include="DAL\Models\SalesOrderHeader.cs" />
+    <Compile Include="DAL\Models\SalesOrderHeaderSalesReason.cs" />
+    <Compile Include="DAL\Models\SalesPerson.cs" />
+    <Compile Include="DAL\Models\SalesPersonQuotaHistory.cs" />
+    <Compile Include="DAL\Models\SalesReason.cs" />
+    <Compile Include="DAL\Models\SalesTaxRate.cs" />
+    <Compile Include="DAL\Models\SalesTerritory.cs" />
+    <Compile Include="DAL\Models\SalesTerritoryHistory.cs" />
+    <Compile Include="DAL\Models\ScrapReason.cs" />
+    <Compile Include="DAL\Models\Shift.cs" />
+    <Compile Include="DAL\Models\ShipMethod.cs" />
+    <Compile Include="DAL\Models\ShoppingCartItem.cs" />
+    <Compile Include="DAL\Models\SpecialOffer.cs" />
+    <Compile Include="DAL\Models\SpecialOfferProduct.cs" />
+    <Compile Include="DAL\Models\StateProvince.cs" />
+    <Compile Include="DAL\Models\Store.cs" />
+    <Compile Include="DAL\Models\StoreContact.cs" />
+    <Compile Include="DAL\Models\TransactionHistory.cs" />
+    <Compile Include="DAL\Models\TransactionHistoryArchive.cs" />
+    <Compile Include="DAL\Models\UnitMeasure.cs" />
+    <Compile Include="DAL\Models\VAdditionalContactInfo.cs" />
+    <Compile Include="DAL\Models\VEmployee.cs" />
+    <Compile Include="DAL\Models\VEmployeeDepartment.cs" />
+    <Compile Include="DAL\Models\VEmployeeDepartmentHistory.cs" />
+    <Compile Include="DAL\Models\Vendor.cs" />
+    <Compile Include="DAL\Models\VendorAddress.cs" />
+    <Compile Include="DAL\Models\VendorContact.cs" />
+    <Compile Include="DAL\Models\VIndividualCustomer.cs" />
+    <Compile Include="DAL\Models\VIndividualDemographic.cs" />
+    <Compile Include="DAL\Models\VJobCandidate.cs" />
+    <Compile Include="DAL\Models\VJobCandidateEducation.cs" />
+    <Compile Include="DAL\Models\VJobCandidateEmployment.cs" />
+    <Compile Include="DAL\Models\VProductAndDescription.cs" />
+    <Compile Include="DAL\Models\VProductModelCatalogDescription.cs" />
+    <Compile Include="DAL\Models\VProductModelInstruction.cs" />
+    <Compile Include="DAL\Models\VSalesPerson.cs" />
+    <Compile Include="DAL\Models\VSalesPersonSalesByFiscalYear.cs" />
+    <Compile Include="DAL\Models\VStateProvinceCountryRegion.cs" />
+    <Compile Include="DAL\Models\VStoreWithDemographic.cs" />
+    <Compile Include="DAL\Models\VVendor.cs" />
+    <Compile Include="DAL\Models\WorkOrder.cs" />
+    <Compile Include="DAL\Models\WorkOrderRouting.cs" />
+    <Compile Include="DAL\Utility\AllStructs.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\OptionsForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OptionsPanel.resx">
+      <DependentUpon>OptionsPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\GridView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\DataSources\SubSonic.CPF.Utility.LogEntry.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SubSonic.CPF\SubSonic.CPF.csproj">
+      <Project>{48E2ED96-0FC4-4520-8240-10F5F690AB82}</Project>
+      <Name>SubSonic.CPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowDown.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowUp.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NavigateBar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Resources\NoImage.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
