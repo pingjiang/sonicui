@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using SubSonic.Commander;
 using System.Diagnostics;
+using Office2007MessageBox;
 
 namespace SonicUI
 {
@@ -23,6 +24,7 @@ namespace SonicUI
             kryptonDataGridView2.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             ApplicationLog.AddEntry(LogState.Information, "Welcome to SonicUI");
             cmbLanguage.SelectedIndex = 0;
+            
             this.ResumeLayout();
         }
 
@@ -140,7 +142,8 @@ namespace SonicUI
         private void compileWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             setStatus("Finished");
-            MessageBox.Show("Generation Complete");
+            MessageBox.Show("Generation Complete","Compile",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            //MessageBox.Show("Generation Complete");
         }
         void SensitizeControls()
         {
@@ -159,7 +162,7 @@ namespace SonicUI
         private void btnScriptSchema_Click(object sender, EventArgs e)
         {
             SubSommander.ScriptSchema();
-            MessageBox.Show("Schema Written");
+            MessageBox.Show("Schema Written", "SQL Schema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
