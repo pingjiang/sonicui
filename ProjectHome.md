@@ -1,0 +1,1 @@
+Simple Gui using SubCommander's base code. The idea is to get a nice visual representation of the code output and Database objects when generating a DAL for winforms/asp.net projects using SubSonic
